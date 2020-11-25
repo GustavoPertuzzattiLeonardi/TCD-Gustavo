@@ -1,32 +1,30 @@
-const { Gado } = require('../models');
+const { CadastroUser } = require('../models');
 
 module.exports = {
   /**
-   *  GET localhost:3000/Gado - retorna todos os Gado que estão no banco de dados
+   *  GET localhost:3000/CadastroUser - retorna todos os cadastros que estão no banco de dados
    * @param {*} req 
    * @param {*} res 
    */
   async find(req, res) {
     try {
-      const gado = await Gado.findAll();
-      return res.send(gado);
+      const cadastrousers = await CadastroUser.findAll();
+      return res.send(cadastrousers);
     } catch (e) {
       console.error(e);
       return res.status(500).send({});
     }
   },
-
   /**
-   * GET /Gado/:id - retorna um Gado com o id enviado por parametro
+   * GET /CadastroUser/:id - retorna um cadastro com o id enviado por parametro
    * @param {*} req 
    * @param {*} res 
    */
   async findOne(req, res) {
     return res.send({});
   },
-
   /**
-   * POST /Gado - recebe um json com dados de um Gado e cria o Gado
+   * cadastro /CadastroUser - recebe um json com dados de um cadastro e cria o cadastro
    * @param {*} req 
    * @param {*} res 
    */
@@ -34,25 +32,23 @@ module.exports = {
 
     try {
       console.log(req.body);
-      const gado = await Gado.create(req.body.gado);
-      return res.status(201).send(gado);
+      const cadastrousers = await CadastroUser.create(req.body.user);
+      return res.status(201).send(cadastrousers);
     } catch(e) {
       console.error(e);
       res.status(500).send({});
     }
   },
-
   /**
-   * PUT /Gado/:id - Atualiza um Gado com novas informações
+   * PUT /CadastroUser/:id - Atualiza um cadastro com novas informações
    * @param {*} req 
    * @param {*} res 
    */
   async update(req, res) {
     return res.send({});
   },
-
   /**
-   * DELETE /Gado/:id - Remove um Gado da base de dados
+   * DELETE /cadastros/:id - Remove um cadastro da base de dados
    * @param {*} req 
    * @param {*} res 
    */

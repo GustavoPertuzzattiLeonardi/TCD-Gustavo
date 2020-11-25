@@ -1,4 +1,6 @@
+
 <template>
+
   <div id="app">
 
     <router-view />
@@ -30,7 +32,7 @@ time, mark, audio, video {
 }
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #2c5034;
 }
 #nav a.router-link-exact-active {
   color: #42b983;

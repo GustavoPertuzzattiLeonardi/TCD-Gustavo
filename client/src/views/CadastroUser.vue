@@ -1,70 +1,72 @@
 <template>
   <div class="container">
     <a class="links" id="paracadastro"></a>
-    <a class="links" id="paralogin"></a>
+    <a class="links" id="paracadastrouser"></a>
 
     <div class="content">
-      <!--FORMULÁRIO DE LOGIN-->
-      <div id="login">
-        <form method="post" action="">
-          <h1>Techow</h1>
+      <!--FORMULÁRIO DE cadastrouser-->
+      <div id="cadastrouser">
+        <form method="post" @submit.prevent="creatUser">
+          
+          <h1>Crie sua Conta</h1>
           <p>
-            <label for="email_login">E-mail</label>
-            <input
-              id="email_login"
-              name="email_login"
-              required="required"
-              type="text"
-            />
+            <label for="nomeuser_cadastrouser">Nome</label>
+            <input type="text" v-model="user.user"/>
           </p>
 
           <p>
-            <label for="senha_login">Senha</label>
-            <input
-              id="senha_login"
-              name="senha_login"
-              required="required"
-              type="password"
-            />
+            <label for="email_cadastrouser">E-mail</label>
+            <input type="text" v-model="user.email"/>
+          </p>
+
+          <p>
+            <label for="senha_cadastrouser">Senha</label>
+            <input type="text" v-model="user.senha"/>
           </p>
 
           <p></p>
-
-          <form action="/Principal" method="get" class="entrar">
-            <input type="submit" value="Entrar" />
-          </form>
+        
+          <input type="submit" value="Criar" />
 
           <p class="link">
-            Não tem uma conta?
-            <a href="/CadastroUser">Crie uma!</a>
+           
+            <a href="/Login">Voltar</a>
           </p>
         </form>
       </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: "Login",
+  name: "CadastroUser",
   components: {
     // Footer
   },
   data() {
     return {
-      cadastros: []
+      user: {
+          name: null,
+          email: null,
+          senha: null
+      }
     };
   },
-  created() {
-    axios.get('/login').then(response => {
-      console.log('response', response);
-      this.cadastros = response.data;
-    })
+  methods: {
+    creatUser() {
+       const data = {
+           user: this.user
+       }   
+      axios.post("/CadastroUser", data).then(response => {
+        console.log("response", response);
+        this.cadastros = response.data;
+        this.$router.push('/Login')
+      });
+    }
   }
-}
+};
 </script>
 
 <style>
@@ -77,7 +79,7 @@ export default {
 *:after {
   margin: 0;
   padding: 0;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -88,26 +90,47 @@ a {
   text-decoration: none;
 }
 
-/* esconde as ancoras da tela */
 a.links {
   display: none;
 }
 
-/* content que contem os formulários */
 .content {
   width: 500px;
   margin: 0px auto;
   position: relative;
 }
 
-/* formatando o cabeçalho dos formulários */
 h1 {
-  color: #34a529;
+  font-size: 48px;
+  color: #0f7506;
   padding: 10px 0;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: Arial, sans-serif;
   font-weight: bold;
   text-align: center;
   padding-bottom: 30px;
+}
+h1:after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background: -webkit-linear-gradient(
+    left,
+    rgba(147, 184, 189, 0) 0%,
+    rgba(147, 184, 189, 0.8) 20%,
+    rgba(147, 184, 189, 1) 53%,
+    rgba(147, 184, 189, 0.8) 79%,
+    rgba(147, 184, 189, 0) 100%
+  );
+  background: linear-gradient(
+    left,
+    rgba(147, 184, 189, 0) 0%,
+    rgba(147, 184, 189, 0.8) 20%,
+    rgba(147, 184, 189, 1) 53%,
+    rgba(147, 184, 189, 0.8) 79%,
+    rgba(147, 184, 189, 0) 100%
+  );
 }
 
 p {
@@ -117,7 +140,7 @@ p:first-child {
   margin: 0px;
 }
 label {
-  color: #40604d;
+  color: #405c60;
   position: relative;
 }
 
@@ -143,7 +166,7 @@ input:not([type="checkbox"]) {
   border: 1px solid #b2b2b2;
 
   -webkit-border-radius: 3px;
-  border-radius: 1px;
+  border-radius: 3px;
 
   -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
   box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
@@ -155,7 +178,7 @@ input:not([type="checkbox"]) {
 input[type="submit"] {
   width: 100% !important;
   cursor: pointer;
-  background: #34a529;
+  background: #159b15;
   padding: 8px 5px;
   color: #fff;
   font-size: 20px;
@@ -169,12 +192,12 @@ input[type="submit"] {
   transition: all 0.2s linear;
 }
 input[type="submit"]:hover {
-  background: #34a529;
+  background: #4ec64a;
 }
 
 .link {
   position: absolute;
-  background: #e2ebe1;
+  background: #e1eaeb;
   color: #7f7c7c;
   left: 0px;
   height: 20px;
@@ -182,18 +205,18 @@ input[type="submit"]:hover {
   padding: 17px 30px 20px 30px;
   font-size: 16px;
   text-align: right;
-  border-top: 1px solid #dbe8e3;
+  border-top: 1px solid #dbe5e8;
 
   -webkit-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
 }
 .link a {
   font-weight: bold;
-  background: #00f10c;
+  background: #f7f8f1;
   padding: 6px;
-  color: #33a529;
+  color: rgb(29, 193, 29);
   margin-left: 10px;
-  border: 1px solid #00831c;
+  border: 1px solid #cbd518;
 
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -202,25 +225,23 @@ input[type="submit"]:hover {
   transition: all 0.4s linear;
 }
 .link a:hover {
-  color: #0c9200;
+  color: #39bfd7;
   background: #f7f7f7;
-  border: 1px solid #34a529;
+  border: 1px solid #4ab3c6;
 }
 
 #cadastro,
-#login {
+#cadastrouser {
   position: absolute;
   top: 0px;
   width: 88%;
   padding: 18px 6% 60px 6%;
   margin: 0 0 35px 0;
-  color: #34a529;
   background: rgb(247, 247, 247);
-  border: 1px solid rgba(14, 145, 25, 0.8);
- 
+  border: 1px solid rgba(147, 184, 189, 0.8);
 
 
- 
+  border-radius: 5px;
 
   -webkit-animation-duration: 0.5s;
   -webkit-animation-timing-function: ease;
@@ -232,7 +253,7 @@ input[type="submit"]:hover {
 }
 
 #paracadastro:target ~ .content #cadastro,
-#paralogin:target ~ .content #login {
+#paracadastrouser:target ~ .content #cadastrouser {
   z-index: 2;
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
@@ -240,56 +261,9 @@ input[type="submit"]:hover {
   -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
 }
-#registro:target ~ .content #login,
-#paralogin:target ~ .content #cadastro {
+#registro:target ~ .content #cadastrouser,
+#paracadastrouser:target ~ .content #cadastro {
   -webkit-animation-name: fadeOutLeft;
   animation-name: fadeOutLeft;
-}
-
-
-/*fadeInLeft*/
-@-webkit-keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/*fadeOutLeft*/
-@-webkit-keyframes fadeOutLeft {
-  0% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: translateX(-20px);
-  }
-}
-
-@keyframes fadeOutLeft {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
 }
 </style>

@@ -1,15 +1,15 @@
-const { Gado } = require('../models');
+const { Piquete } = require('../models');
 
 module.exports = {
   /**
-   *  GET localhost:3000/Gado - retorna todos os Gado que estão no banco de dados
+   *  GET localhost:3000/AFD - retorna todos os AFD que estão no banco de dados
    * @param {*} req 
    * @param {*} res 
    */
   async find(req, res) {
     try {
-      const gado = await Gado.findAll();
-      return res.send(gado);
+      const AFD = await Piquete.findAll();
+      return res.send(AFD);
     } catch (e) {
       console.error(e);
       return res.status(500).send({});
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   /**
-   * GET /Gado/:id - retorna um Gado com o id enviado por parametro
+   * GET /AFD/:id - retorna um piquete com o id enviado por parametro
    * @param {*} req 
    * @param {*} res 
    */
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   /**
-   * POST /Gado - recebe um json com dados de um Gado e cria o Gado
+   * POST /AFD - recebe um json com dados de um piquete e cria o piquete
    * @param {*} req 
    * @param {*} res 
    */
@@ -34,8 +34,8 @@ module.exports = {
 
     try {
       console.log(req.body);
-      const gado = await Gado.create(req.body.gado);
-      return res.status(201).send(gado);
+      const piquete = await Piquete.create(req.body);
+      return res.status(201).send(piquete);
     } catch(e) {
       console.error(e);
       res.status(500).send({});
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   /**
-   * PUT /Gado/:id - Atualiza um Gado com novas informações
+   * PUT /AFD/:id - Atualiza um piquete com novas informações
    * @param {*} req 
    * @param {*} res 
    */
@@ -52,7 +52,7 @@ module.exports = {
   },
 
   /**
-   * DELETE /Gado/:id - Remove um Gado da base de dados
+   * DELETE /AFD/:id - Remove um piquete da base de dados
    * @param {*} req 
    * @param {*} res 
    */

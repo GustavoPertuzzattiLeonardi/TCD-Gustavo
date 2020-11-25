@@ -2,22 +2,22 @@ const { Piquete } = require('../models');
 
 module.exports = {
   /**
-   *  GET localhost:3000/piquetes - retorna todos os piquetes que estão no banco de dados
+   *  GET localhost:3000/piquete - retorna todos os piquete que estão no banco de dados
    * @param {*} req 
    * @param {*} res 
    */
   async find(req, res) {
     try {
-      const piquetes = await Piquete.findAll();
-      return res.send(piquetes);
+      const piquete = await Piquete.findAll();
+      return res.send(piquete);
     } catch (e) {
       console.error(e);
       return res.status(500).send({});
     }
   },
 
-  /**'
-   * GET BY ID/piquetes/:id - retorna um piquete com o id enviado por parametro
+  /**
+   * GET /piquete/:id - retorna um Piquete com o id enviado por parametro
    * @param {*} req 
    * @param {*} res 
    */
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   /**
-   * POST /piquetes - recebe um json com dados de um piquete e cria o piquete
+   * POST /piquete - recebe um json com dados de um Piquete e cria o Piquete
    * @param {*} req 
    * @param {*} res 
    */
@@ -34,7 +34,7 @@ module.exports = {
 
     try {
       console.log(req.body);
-      const piquete = await Piquete.create(req.body);
+      const piquete = await Piquete.create(req.body.piquete);
       return res.status(201).send(piquete);
     } catch(e) {
       console.error(e);
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   /**
-   * PUT /piquetes/:id - Atualiza um piquete com novas informações
+   * PUT /piquete/:id - Atualiza um Piquete com novas informações
    * @param {*} req 
    * @param {*} res 
    */
@@ -52,7 +52,7 @@ module.exports = {
   },
 
   /**
-   * DELETE /piquetes/:id - Remove um piquete da base de dados
+   * DELETE /piquete/:id - Remove um Piquete da base de dados
    * @param {*} req 
    * @param {*} res 
    */

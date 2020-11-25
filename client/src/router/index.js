@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue';
 import Principal from '../views/Principal.vue';
+import CadastroUser from '../views/CadastroUser.vue';
 import Gado from '../views/Gado.vue';
 import Piquete from '../views/Piquete.vue';
 import AFD from '../views/AFD.vue';
@@ -9,6 +10,11 @@ import AFD from '../views/AFD.vue';
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'Login',
+    component: Login
+  },
   {
     path: '/login',
     name: 'Login',
@@ -20,7 +26,12 @@ const routes = [
     component: Principal
   }, 
   {
-    path: '/gado',
+    path: '/CadastroUser',
+    name: 'CadastroUser',
+    component: CadastroUser
+  }, 
+  {
+    path: '/Gado',
     name: 'Gado',
     component: Gado
   }, 
@@ -34,8 +45,7 @@ const routes = [
     name: 'AFD',
     component: AFD
   }
-
-
+  
 ]
 
 const router = new VueRouter({
