@@ -1,35 +1,63 @@
 <template>
   <div class="container">
     <a class="links" id="paracadastro"></a>
-    <a class="links" id="paracadastrouser"></a>
+    <a class="links" id="paralogin"></a>
 
     <div class="content">
-      <!--FORMULÁRIO DE cadastrouser-->
-      <div id="cadastrouser">
-        <form method="post" @submit.prevent="creatUser">
-          
-          <h1>Crie sua Conta</h1>
+      <!--FORMULÁRIO DE LOGIN-->
+      <div id="login">
+        <form method="post" @submit.prevent="register">
+          <h1>Cadastro Usuário</h1>
           <p>
-            <label for="nomeuser_cadastrouser">Nome</label>
-            <input type="text" v-model="user.user"/>
+            <label for="email_login">Nome</label>
+            <input
+              type="text"
+              name="user"
+              placeholder="Seu Nome"
+              v-model="credentials.user"
+              required
+              class="login__input"
+            />
+          </p>
+          <p>
+            <label for="email_login">E-mail</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Seu E-mail"
+              v-model="credentials.email"
+              required
+              class="login__input"
+            />
           </p>
 
           <p>
-            <label for="email_cadastrouser">E-mail</label>
-            <input type="text" v-model="user.email"/>
+            <label for="senha_login">senha</label>
+            <input
+              type="senha"
+              name="senha"
+              v-model="credentials.senha"
+              placeholder="Senha"
+              required
+              class="login__input"
+            />
           </p>
 
           <p>
-            <label for="senha_cadastrouser">Senha</label>
-            <input type="text" v-model="user.senha"/>
+            <input
+              type="checkbox"
+              name="manterlogado"
+              id="manterlogado"
+              value=""
+            />
+            <label for="manterlogado">Permanecer logado</label>
           </p>
 
           <p></p>
-        
-          <input type="submit" value="Criar" />
+
+          <input type="submit" value="Cadastrar" />
 
           <p class="link">
-           
             <a href="/Login">Voltar</a>
           </p>
         </form>
@@ -39,31 +67,30 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
-  name: "CadastroUser",
+  name: "Login",
   components: {
     // Footer
   },
   data() {
     return {
-      user: {
-          name: null,
-          email: null,
-          senha: null
+      credentials: {
+        user: "",
+        email: "",
+        senha: ""
       }
     };
   },
   methods: {
-    creatUser() {
-       const data = {
-           user: this.user
-       }   
-      axios.post("/CadastroUser", data).then(response => {
-        console.log("response", response);
-        this.cadastros = response.data;
-        this.$router.push('/Login')
-      });
+    async register() {
+      const credentials = this.credentials;
+      try {
+        await this.$store.dispatch("createAuth", credentials);
+        this.$router.push("/Login");
+      } catch (e) {
+        console.log("Login Error on Login Page", e);
+        alert("Não foi possível realizar o Registro");
+      }
     }
   }
 };

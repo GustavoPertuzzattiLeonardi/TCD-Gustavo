@@ -22,7 +22,7 @@ body {
 header {
   background-color: #ffffff;
   width: 100%;
-  height: 30px;
+  height: 80px;
   margin: -10px;
   padding: 20px;
   position: fixed;

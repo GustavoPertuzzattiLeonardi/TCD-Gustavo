@@ -69,14 +69,14 @@ export default {
             icon: 'fa'
         },        
         {
-            href: '/Piquete',
-            title: 'Piquete',
-            icon: 'fa fa-chart-area'            
+            href: '/Gado',
+            title: 'Gado',
+            icon: 'fa'            
         },
         {
             href: '/Piquete',
             title: 'Piquete',
-            icon: 'fa'
+            icon: 'fa fa-chart-area'
         },
         {
             href: '/AFD',
@@ -137,5 +137,6 @@ export default {
   animation-timing-function: ease;
   animation-fill-mode: both;
 }
+
 
 </style>

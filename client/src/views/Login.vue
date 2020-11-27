@@ -6,48 +6,57 @@
     <div class="content">
       <!--FORMULÁRIO DE LOGIN-->
       <div id="login">
-        <form method="post" action="">
-          <h1>Techow</h1>
+        <form method="post" @submit.prevent="login">
+          <h1>Login</h1>
           <p>
             <label for="email_login">E-mail</label>
             <input
-              id="email_login"
-              name="email_login"
-              required="required"
               type="text"
+              name="email"
+              placeholder="E-mail"
+              v-model="credentials.email"
+              required
+              class="login__input"
             />
           </p>
 
           <p>
             <label for="senha_login">Senha</label>
             <input
-              id="senha_login"
-              name="senha_login"
-              required="required"
-              type="password"
+              type="senha"
+              name="senha"
+              v-model="credentials.senha"
+              placeholder="Senha"
+              required
+              class="login__input"
             />
+          </p>
+
+          <p>
+            <input
+              type="checkbox"
+              name="manterlogado"
+              id="manterlogado"
+              value=""
+            />
+            <label for="manterlogado">Permanecer logado</label>
           </p>
 
           <p></p>
 
-          <form action="/Principal" method="get" class="entrar">
-            <input type="submit" value="Entrar" />
-          </form>
+          <input type="submit" value="Logar" />
 
           <p class="link">
-            Não tem uma conta?
+            Ainda não tem conta?
             <a href="/CadastroUser">Crie uma!</a>
           </p>
         </form>
       </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: "Login",
   components: {
@@ -55,16 +64,25 @@ export default {
   },
   data() {
     return {
-      cadastros: []
+      credentials: {
+        email: "",
+        senha: ""
+      }
     };
   },
-  created() {
-    axios.get('/login').then(response => {
-      console.log('response', response);
-      this.cadastros = response.data;
-    })
+  methods: {
+    async login() {
+      const credentials = this.credentials;
+      try {
+        await this.$store.dispatch("authenticate", credentials);
+        this.$router.push("/");
+      } catch (e) {
+        console.log("Login Error on Login Page", e);
+        alert("Não foi possível realizar o login");
+      }
+    }
   }
-}
+};
 </script>
 
 <style>
